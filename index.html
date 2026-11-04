@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohamad Irfan | Career Transcript & Portfolio</title>
+  
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Devicon CDN untuk Logo Tech Stack -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              emerald: '#00df89',
+              teal: '#00e5ff',
+              dark: '#030712',
+              card: 'rgba(15, 23, 42, 0.75)',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fallback, Core CSS & SVG Clamp -->
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 3rem;
+    }
+    body {
+      background-color: #030712;
+      color: #f3f4f6;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* KUNCI UKURAN SVG AGAR TIDAK MELUAP */
+    svg {
+      max-width: 24px !important;
+      max-height: 24px !important;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    header nav svg {
+      max-width: 16px !important;
+      max-height: 16px !important;
+      width: 16px !important;
+      height: 16px !important;
+    }
+
+    /* Plexus Background Canvas */
+    #plexus-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Glassmorphism Styles */
+    .glass-panel {
+      background: rgba(10, 20, 24, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 223, 137, 0.18);
+    }
+    .glass-card {
+      background: rgba(13, 27, 34, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 223, 137, 0.18);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(0, 223, 137, 0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px -10px rgba(0, 223, 137, 0.22);
+    }
+    .text-glow {
+      text-shadow: 0 0 25px rgba(0, 223, 137, 0.55);
+    }
+
+    /* Sticky Profile Semula Jadi */
+    @media (min-width: 1024px) {
+      .sticky-profile-natural {
+        position: sticky;
+        top: 4.5rem;
+        height: fit-content;
+      }
+    }
+
+    /* 3D Tilt Card Container */
+    .tilt-card {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: transform 0.15s ease-out;
+      will-change: transform;
+    }
+
+    /* Floating Animation */
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-float {
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    /* Scroll Reveal */
+    .reveal-motion {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-motion.revealed {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    /* Project Filter Tab Transitions */
+    .project-card-item {
+      transition: all 0.4s ease;
+    }
+    .project-card-item.hidden-project {
+      display: none;
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    /* Terminal Console Caret Blink */
+    @keyframes blinkCaret {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .terminal-caret {
+      display: inline-block;
+      width: 7px;
+      height: 14px;
+      background-color: #00df89;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blinkCaret 0.8s infinite;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-[#00df89] selection:text-black relative">
+
+  <!-- Interactive Plexus Background with Mouse Force -->
+  <canvas id="plexus-canvas"></canvas>
+
+  <div class="relative z-10 flex min-h-screen flex-col">
+    
+    <!-- Top Navigation Bar -->
+    <header class="relative mx-auto w-full max-w-6xl px-4 pt-6 pb-2">
+      <nav class="glass-panel flex items-center justify-between rounded-full px-6 py-3 shadow-2xl transition-all duration-300">
+        
+        <!-- Simbol Navigasi Minimalis (Ikon dengan Tooltip) -->
+        <div class="flex items-center gap-1 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 sm:gap-2">
+          
+          <!-- Simbol Profile -->
+          <a href="#hero" class="group relative rounded-full p-2 text-gray-400 transition-all hover:scale-110 hover:bg-white/10 hover:text-[#00df89]" title="Profile">
+            <svg class="h-4 w-4 shrink-0" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 rounded border border-white/10 bg-black px-2 py-0.5 font-mono text-[10px] text-gray-300 opacity-0 transition-opacity group-hover:opacity-100">Profile</span>
+          </a>
+
+          <!-- Simbol Transcript -->
+          <a href="#transcript" class="group relative rounded-full p-2 text-gray-400 transition-all hover:scale-110 hover:bg-white/10 hover:text-[#00df89]" title="Transcript">
+            <svg class="h-4 w-4 shrink-0" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 rounded border border-white/10 bg-black px-2 py-0.5 font-mono text-[10px] text-gray-300 opacity-0 transition-opacity group-hover:opacity-100">Transcript</span>
+          </a>
+
+          <!-- Simbol Featured Projects -->
+          <a href="#projects" class="group relative rounded-full p-2 text-gray-400 transition-all hover:scale-110 hover:bg-white/10 hover:text-[#00df89]" title="Projects">
+            <svg class="h-4 w-4 shrink-0" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 rounded border border-white/10 bg-black px-2 py-0.5 font-mono text-[10px] text-gray-300 opacity-0 transition-opacity group-hover:opacity-100">Projects</span>
+          </a>
+
+          <!-- Simbol Tools & Tech -->
+          <a href="#tools" class="group relative rounded-full p-2 text-gray-400 transition-all hover:scale-110 hover:bg-white/10 hover:text-[#00df89]" title="Tools">
+            <svg class="h-4 w-4 shrink-0" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            <span class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 rounded border border-white/10 bg-black px-2 py-0.5 font-mono text-[10px] text-gray-300 opacity-0 transition-opacity group-hover:opacity-100">Tools</span>
+          </a>
+
+        </div>
+
+        <!-- Bahagian Kanan: Live Time & Contact Icon -->
+        <div class="flex items-center gap-2.5">
+          <div class="hidden items-center gap-1.5 rounded-full border border-[#00df89]/30 bg-emerald-950/40 px-3 py-1 font-mono text-[11px] text-emerald-300 sm:flex">
+            <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00df89]"></span>
+            <span id="myt-clock">--:--:-- MYT</span>
+          </div>
+
+          <a href="#contact" class="flex h-8 w-8 items-center justify-center rounded-full bg-[#00df89] text-black shadow-[0_0_12px_rgba(0,223,137,0.3)] transition-all hover:scale-110 hover:bg-[#00c97b] active:scale-95" title="Contact Me">
+            <svg class="h-4 w-4 shrink-0" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </a>
+        </div>
+
+      </nav>
+    </header>
+
+    <!-- ================= KONTENA GABUNGAN: HERO & CAREER TRANSCRIPT ================= -->
+    <main class="mx-auto w-full max-w-6xl px-4 pt-10 pb-12">
+      <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
+        
+        <!-- ================= LAJUR KIRI: GAMBAR STICKY HINGGA HABIS CAREER ================= -->
+        <div class="sticky-profile-natural flex flex-col items-center lg:col-span-5 lg:items-start">
+          
+          <!-- Availability Badge -->
+          <div class="animate-float mb-4 inline-flex items-center gap-2 rounded-full border border-[#00df89]/30 bg-[#00df89]/10 px-3.5 py-1.5 text-xs font-semibold text-[#00df89] shadow-[0_0_15px_rgba(0,223,137,0.15)]">
+            <span class="h-2 w-2 animate-ping rounded-full bg-[#00df89]"></span>
+            <span>Available for Opportunities</span>
+          </div>
+
+          <!-- Kad Gambar Profil Utama (Fit & 3D Tilt Motion) -->
+          <div id="tilt-profile-1" class="tilt-card glass-card group relative aspect-[4/5] w-full max-w-[340px] sm:max-w-[360px] cursor-pointer overflow-hidden rounded-3xl p-3 shadow-2xl">
+            <div class="pointer-events-none relative h-full w-full overflow-hidden rounded-2xl border border-[#00df89]/25 bg-black/60">
+              <img src="profile.jpg" alt="Mohamad Irfan" class="h-full w-full rounded-2xl object-cover object-center transition-transform duration-700 group-hover:scale-105">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= LAJUR KANAN: HERO TEXT & CAREER TRANSCRIPT ================= -->
+        <div class="flex flex-col space-y-20 lg:col-span-7">
+          
+          <!-- Section 1: Hero Text Details -->
+          <section id="hero" class="reveal-motion pt-2">
+            <h1 class="text-6xl font-black tracking-tight text-white leading-[1.05] sm:text-7xl lg:text-8xl">
+              Mohamad <span class="text-glow inline-block text-[#00df89] transition-transform duration-300 hover:scale-105">Irfan</span>
+            </h1>
+            
+            <p class="mt-6 max-w-xl text-base font-normal text-gray-300 leading-relaxed sm:text-lg">
+              Passionate about building modern web and mobile applications. I craft intuitive digital experiences and high-throughput backend systems that bring innovative ideas to life.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <a href="#transcript" class="rounded-full bg-[#00df89] px-7 py-3 text-sm font-bold tracking-wide text-black shadow-[0_0_20px_rgba(0,223,137,0.35)] transition-all hover:scale-105 hover:bg-[#00c97b] active:scale-95">
+                View Transcript
+              </a>
+              <a href="#contact" class="glass-panel rounded-full border border-white/20 px-7 py-3 text-sm font-semibold text-white transition-all hover:scale-105 hover:border-[#00df89]/50 hover:bg-white/10 active:scale-95">
+                Get In Touch
+              </a>
+            </div>
+
+            <!-- Download Resume / Quick Dossier Bar -->
+            <div class="glass-panel mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#00df89]/25 p-3.5 transition-colors hover:border-[#00df89]/50">
+              <div class="flex items-center gap-3">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#00df89]/30 bg-[#00df89]/10 text-[#00df89]">
+                  <svg class="h-5 w-5 shrink-0" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs font-bold tracking-wide text-white">Career Resume / CV</div>
+                  <div class="font-mono text-[11px] text-gray-400">PDF Format (Latest Updated)</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <a href="RESUME.pdf" download class="flex items-center gap-1.5 rounded-xl border border-[#00df89]/30 bg-black/60 px-4 py-2 font-mono text-xs font-semibold text-white transition-all hover:scale-105 hover:bg-[#00df89]/20 hover:text-[#00df89] active:scale-95">
+                  <span>Download</span>
+                  <svg class="h-3.5 w-3.5 shrink-0" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                </a>
+
+                <button onclick="copyEmail(this)" data-email="irfan@example.com" class="flex items-center gap-1.5 rounded-xl border border-white/10 bg-black/60 px-3.5 py-2 font-mono text-xs text-gray-300 transition-all hover:scale-105 hover:bg-white/10 hover:text-white active:scale-95" title="Copy Email">
+                  <svg class="h-3.5 w-3.5 shrink-0" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <span class="btn-text">Copy Email</span>
+                </button>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- Section 2: Career & Academic Transcript -->
+          <section id="transcript" class="reveal-motion border-t border-white/10 pt-12 pb-4">
+            <div class="mb-6">
+              <span class="font-mono text-xs uppercase tracking-wider text-[#00df89]">Official Records</span>
+              <h2 class="mt-1 text-2xl font-bold tracking-tight text-white sm:text-3xl">Career & Academic Transcript</h2>
+            </div>
+
+            <div class="glass-card divide-y divide-white/10 overflow-hidden rounded-2xl">
+              
+              <!-- Record 1 -->
+              <div class="group flex flex-col justify-between gap-4 p-5 transition-all duration-300 hover:bg-white/[0.04] sm:flex-row sm:items-center sm:p-6">
+                <div class="space-y-1 transition-transform duration-300 group-hover:translate-x-1.5">
+                  <span class="font-mono text-xs font-medium text-[#00df89]">EXP-2026-DOSM</span>
+                  <h4 class="text-base font-bold text-white">IT / Software Assistant (MySTEP FA5 BPM)</h4>
+                  <p class="text-sm text-gray-400">Department of Statistics Malaysia (DOSM), Putrajaya</p>
+                </div>
+                <div class="sm:text-right">
+                  <span class="inline-block rounded-full border border-[#00df89]/30 bg-emerald-950/60 px-3 py-1 font-mono text-xs text-[#00df89] transition-transform group-hover:scale-105">Completed</span>
+                  <div class="mt-1 font-mono text-xs text-gray-400">Data Verification & Tech Support</div>
+                </div>
+              </div>
+
+              <!-- Record 2 -->
+              <div class="group flex flex-col justify-between gap-4 p-5 transition-all duration-300 hover:bg-white/[0.04] sm:flex-row sm:items-center sm:p-6">
+                <div class="space-y-1 transition-transform duration-300 group-hover:translate-x-1.5">
+                  <span class="font-mono text-xs font-medium text-[#00df89]">EXP-2026-EBEAN</span>
+                  <h4 class="text-base font-bold text-white">IT, Digital & AI Developer Intern</h4>
+                  <p class="text-sm text-gray-400">Ebean Group Sdn Bhd</p>
+                </div>
+                <div class="sm:text-right">
+                  <span class="inline-block rounded-full border border-[#00df89]/30 bg-emerald-950/60 px-3 py-1 font-mono text-xs text-[#00df89] transition-transform group-hover:scale-105">Completed</span>
+                  <div class="mt-1 font-mono text-xs text-gray-400">Full-Stack & Server Mgmt</div>
+                </div>
+              </div>
+
+              <!-- Record 3 -->
+              <div class="group flex flex-col justify-between gap-4 p-5 transition-all duration-300 hover:bg-white/[0.04] sm:flex-row sm:items-center sm:p-6">
+                <div class="space-y-1 transition-transform duration-300 group-hover:translate-x-1.5">
+                  <span class="font-mono text-xs font-medium text-[#00df89]">EDU-2026-UPTM</span>
+                  <h4 class="text-base font-bold text-white">Bachelor of IT (Hons) in Computer Application Development</h4>
+                  <p class="text-sm text-gray-400">Universiti Poly-Tech Malaysia (UPTM)</p>
+                </div>
+                <div class="sm:text-right">
+                  <span class="inline-block rounded-full border border-cyan-400/30 bg-cyan-950/60 px-3 py-1 font-mono text-xs text-cyan-300 transition-transform group-hover:scale-105">CGPA 3.76</span>
+                  <div class="mt-1 font-mono text-xs text-gray-400">First Class Honours</div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ================= BAHAGIAN 2: FEATURED PROJECTS & TOOLS ================= -->
+    <div class="mx-auto w-full max-w-6xl space-y-24 px-4 py-10">
+      
+      <!-- Featured Projects Section dengan Penapis Kategori Web & Mobile -->
+      <section id="projects" class="reveal-motion border-t border-white/10 pt-16">
+        <div class="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-wider text-[#00df89]">Portfolio Showcase</span>
+            <h2 class="mt-1 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Featured Projects</h2>
+            <p class="mt-1 text-sm text-gray-400 sm:text-base">Sistem web dan aplikasi mudah alih (mobile app) yang telah dibangunkan.</p>
+          </div>
+
+          <!-- Filter Tabs Buttons -->
+          <div class="glass-panel flex items-center gap-1.5 self-start rounded-2xl border border-white/10 p-1.5 md:self-auto">
+            <button onclick="filterProjects('all')" data-filter="all" class="filter-btn rounded-xl bg-[#00df89] px-4 py-2 font-mono text-xs font-bold text-black shadow-[0_0_15px_rgba(0,223,137,0.3)] transition-all">
+              All (3)
+            </button>
+            <button onclick="filterProjects('web')" data-filter="web" class="filter-btn rounded-xl px-4 py-2 font-mono text-xs font-medium text-gray-300 transition-all hover:bg-white/10 hover:text-white">
+              Web Systems
+            </button>
+            <button onclick="filterProjects('mobile')" data-filter="mobile" class="filter-btn rounded-xl px-4 py-2 font-mono text-xs font-medium text-gray-300 transition-all hover:bg-white/10 hover:text-white">
+              Mobile Apps
+            </button>
+          </div>
+        </div>
+
+        <div id="projects-grid" class="grid grid-cols-1 gap-10">
+          
+          <!-- PROJECT 1: WEB DASHBOARD -->
+          <div class="project-card-item glass-card group flex flex-col justify-between rounded-3xl p-6 sm:p-8" data-category="web">
+            <div>
+              <div class="relative mb-6 flex w-full items-center justify-center overflow-hidden rounded-2xl border border-[#00df89]/30 bg-black/80 p-3 shadow-2xl">
+                <img src="smart1.png" alt="SmartHealth Monitoring Web Dashboard" class="h-auto max-h-[500px] w-full rounded-xl object-contain transition-all duration-700 group-hover:scale-[1.02]">
+              </div>
+              
+              <div class="mb-2 flex items-center gap-2">
+                <span class="rounded-full border border-cyan-400/30 bg-cyan-950/60 px-2.5 py-0.5 font-mono text-[11px] text-cyan-300">WEB APPLICATION</span>
+                <span class="font-mono text-xs text-gray-400">• Full-Stack System</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white transition-colors group-hover:text-[#00df89] sm:text-3xl">SmartHealth Monitoring Platform</h3>
+              <p class="mt-3 max-w-4xl text-sm text-gray-300 leading-relaxed sm:text-base">
+                Sistem portal web pengurusan dan pemantauan data pesakit masa nyata untuk analisis kesihatan berjadual dengan integrasi API backend yang selamat serta makluman doktor secara automatik.
+              </p>
+            </div>
+            
+            <div class="mt-6 flex flex-wrap gap-2.5 font-mono text-xs text-emerald-300">
+              <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">Laravel</span>
+              <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">REST API</span>
+              <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">MySQL</span>
+              <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">Tailwind CSS</span>
+            </div>
+          </div>
+
+          <!-- PROJECT 2: WEB SYSTEM -->
+          <div class="project-card-item glass-card group flex flex-col justify-between rounded-3xl p-6 sm:p-8" data-category="web">
+            <div>
+              <div class="relative mb-6 flex w-full items-center justify-center overflow-hidden rounded-2xl border border-[#00df89]/30 bg-black/80 p-3 shadow-2xl">
+                <img src="wildlife1.png" alt="WildLife Documentation Web Portal" class="h-auto max-h-[500px] w-full rounded-xl object-contain transition-all duration-700 group-hover:scale-[1.02]">
+              </div>
+              
+              <div class="mb-2 flex items-center gap-2">
+                <span class="rounded-full border border-cyan-400/30 bg-cyan-950/60 px-2.5 py-0.5 font-mono text-[11px] text-cyan-300">WEB PORTAL</span>
+                <span class="font-mono text-xs text-gray-400">• Research & Documentation</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white transition-colors group-hover:text-[#00df89] sm:text-3xl">WildLife Documentation System (Web)</h3>
+              <p class="mt-3 max-w-4xl text-sm text-gray-300 leading-relaxed sm:text-base">
+                Platform pangkalan data spesies hidupan liar di Pulau Banding menggunakan Laravel dan React untuk memproses dan menyusun dokumentasi spesies alam semula jadi secara tersusun.
+              </p>
+            </div>
+            
+            <div class="mt-6 flex flex-wrap gap-2.5 font-mono text-xs text-emerald-300">
+              <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">Laravel</span>
+              <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">React</span>
+              <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">MySQL</span>
+            </div>
+          </div>
+
+          <!-- PROJECT 3: MOBILE APP (Fit Penuh) -->
+          <div class="project-card-item glass-card group flex flex-col items-center gap-8 rounded-3xl p-6 sm:p-8 lg:flex-row" data-category="mobile">
+            <!-- Mobile Frame Container (Penuh & Fit) -->
+            <div class="group-hover:border-[#00df89] relative w-full max-w-[280px] sm:max-w-[310px] shrink-0 overflow-hidden rounded-[2.5rem] border-2 border-[#00df89]/40 bg-black/95 p-3 shadow-2xl transition-colors">
+              <div class="relative flex h-auto max-h-[560px] w-full items-center justify-center overflow-hidden rounded-2xl bg-black/80">
+                <img src="wildlife-app1.jpeg" onerror="this.src='wildlife1.png'" alt="Mobile Application Showcase" class="h-auto max-h-[550px] w-full rounded-xl object-contain transition-all duration-700 group-hover:scale-[1.02]">
+              </div>
+            </div>
+
+            <!-- Penerangan Aplikasi Mobile -->
+            <div class="flex h-full flex-1 flex-col justify-between">
+              <div>
+                <div class="mb-2 flex items-center gap-2">
+                  <span class="rounded-full border border-[#00df89]/30 bg-emerald-950/60 px-2.5 py-0.5 font-mono text-[11px] text-[#00df89]">MOBILE APP</span>
+                  <span class="font-mono text-xs text-gray-400">• Cross-Platform iOS & Android</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white transition-colors group-hover:text-[#00df89] sm:text-3xl">Cross-Platform Field & Attendance App</h3>
+                <p class="mt-3.5 text-sm text-gray-300 leading-relaxed sm:text-base">
+                  Aplikasi mudah alih responsif yang dibangunkan menggunakan Expo React Native dengan pengesahan selamat (*secure authentication*), penyegerakan data luar talian (*offline sync*), dan antara muka pengguna yang pantas untuk kegunaan lapangan.
+                </p>
+
+                <!-- Ciri-ciri Utama App -->
+                <div class="mt-6 grid grid-cols-2 gap-3 font-mono text-xs text-gray-300">
+                  <div class="flex items-center gap-2 rounded-xl border border-white/10 bg-black/40 p-3">
+                    <span class="h-2 w-2 rounded-full bg-[#00df89]"></span>
+                    <span>Smooth Native Gestures</span>
+                  </div>
+                  <div class="flex items-center gap-2 rounded-xl border border-white/10 bg-black/40 p-3">
+                    <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                    <span>REST API Syncing</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 flex flex-wrap gap-2.5 font-mono text-xs text-emerald-300">
+                <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">Expo React Native</span>
+                <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">TypeScript</span>
+                <span class="rounded-lg border border-[#00df89]/25 bg-[#00df89]/10 px-3.5 py-1.5 transition-colors hover:bg-[#00df89]/20">Laravel API</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TOOLS & TECHNOLOGIES (MODERN COMPACT GRID) ================= -->
+      <section id="tools" class="reveal-motion border-t border-white/10 pt-16">
+        <div class="mb-10">
+          <span class="font-mono text-xs uppercase tracking-wider text-[#00df89]">Capabilities</span>
+          <h2 class="mt-1 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Tools & Technologies</h2>
+          <p class="mt-1 text-sm text-gray-400 sm:text-base">Ekosistem pembangunan perisian, rangka kerja, dan alatan yang digunakan.</p>
+        </div>
+
+        <!-- 2x2 Responsive Bento Grid Layout (Seimbang & Kemas) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Category 1: Frontend & Mobile -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between group hover:border-cyan-400/40 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]"></span>
+                  <h3 class="font-mono text-sm font-bold uppercase tracking-wider text-white">Frontend & Mobile Ecosystem</h3>
+                </div>
+                <span class="font-mono text-[11px] text-cyan-300/70 bg-cyan-950/40 border border-cyan-400/20 px-2.5 py-0.5 rounded-full">9 Technologies</span>
+              </div>
+              
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-react-original colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">React</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-nextjs-plain text-lg text-white"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Next.js</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-react-original text-lg text-cyan-400"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Expo RN</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-flutter-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Flutter</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-javascript-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">JavaScript</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-typescript-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">TypeScript</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-html5-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">HTML5</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-css3-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">CSS3</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-cyan-400/40 hover:bg-cyan-950/20 transition-all">
+                  <i class="devicon-tailwindcss-original colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Tailwind</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Backend Architecture -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between group hover:border-[#00df89]/40 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#00df89] shadow-[0_0_10px_#00df89]"></span>
+                  <h3 class="font-mono text-sm font-bold uppercase tracking-wider text-white">Backend & Core Logic</h3>
+                </div>
+                <span class="font-mono text-[11px] text-emerald-300/70 bg-emerald-950/40 border border-[#00df89]/20 px-2.5 py-0.5 rounded-full">5 Technologies</span>
+              </div>
+              
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-[#00df89]/40 hover:bg-emerald-950/20 transition-all">
+                  <i class="devicon-laravel-original colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Laravel</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-[#00df89]/40 hover:bg-emerald-950/20 transition-all">
+                  <i class="devicon-php-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">PHP</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-[#00df89]/40 hover:bg-emerald-950/20 transition-all">
+                  <i class="devicon-python-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Python</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-[#00df89]/40 hover:bg-emerald-950/20 transition-all">
+                  <i class="devicon-java-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Java</span>
+                </div>
+                <div class="flex items-center gap-2.5 rounded-xl border border-white/5 bg-black/40 px-3 py-2.5 hover:border-[#00df89]/40 hover:bg-emerald-950/20 transition-all col-span-2 sm:col-span-2">
+                  <i class="devicon-fastapi-plain colored text-lg"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">RESTful API Architecture</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 3: Database & Local Environment -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between group hover:border-emerald-400/40 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399]"></span>
+                  <h3 class="font-mono text-sm font-bold uppercase tracking-wider text-white">Database & Environment</h3>
+                </div>
+                <span class="font-mono text-[11px] text-emerald-300/70 bg-emerald-950/40 border border-emerald-400/20 px-2.5 py-0.5 rounded-full">Data Layer</span>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-3">
+                <div class="flex items-center gap-3 rounded-xl border border-white/5 bg-black/40 p-3.5 hover:border-emerald-400/40 hover:bg-emerald-950/20 transition-all">
+                  <i class="devicon-mysql-original colored text-xl"></i>
+                  <div>
+                    <span class="block text-xs font-mono font-bold text-white">MySQL</span>
+                    <span class="block text-[11px] font-mono text-gray-400">Relational Database</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 rounded-xl border border-white/5 bg-black/40 p-3.5 hover:border-emerald-400/40 hover:bg-emerald-950/20 transition-all">
+                  <i class="devicon-apache-plain colored text-xl"></i>
+                  <div>
+                    <span class="block text-xs font-mono font-bold text-white">Laragon</span>
+                    <span class="block text-[11px] font-mono text-gray-400">Local Dev Server</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 4: DevOps, Testing & Cloud -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between group hover:border-teal-400/40 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-teal-400 shadow-[0_0_10px_#2dd4bf]"></span>
+                  <h3 class="font-mono text-sm font-bold uppercase tracking-wider text-white">DevOps & Cloud Workflow</h3>
+                </div>
+                <span class="font-mono text-[11px] text-teal-300/70 bg-teal-950/40 border border-teal-400/20 px-2.5 py-0.5 rounded-full">Deployment</span>
+              </div>
+              
+              <div class="grid grid-cols-3 gap-2.5">
+                <div class="flex flex-col items-center justify-center text-center gap-2 rounded-xl border border-white/5 bg-black/40 p-3 hover:border-teal-400/40 hover:bg-teal-950/20 transition-all">
+                  <i class="devicon-git-plain colored text-xl"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Git / GitHub</span>
+                </div>
+                <div class="flex flex-col items-center justify-center text-center gap-2 rounded-xl border border-white/5 bg-black/40 p-3 hover:border-teal-400/40 hover:bg-teal-950/20 transition-all">
+                  <i class="devicon-postman-plain colored text-xl"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Postman</span>
+                </div>
+                <div class="flex flex-col items-center justify-center text-center gap-2 rounded-xl border border-white/5 bg-black/40 p-3 hover:border-teal-400/40 hover:bg-teal-950/20 transition-all">
+                  <i class="devicon-netlify-plain colored text-xl"></i>
+                  <span class="text-xs font-mono font-medium text-gray-200">Netlify</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================= BAHAGIAN 3: GET IN TOUCH ================= -->
+    <section id="contact" class="reveal-motion mx-auto w-full max-w-6xl border-t border-white/10 px-4 pt-16 pb-24">
+      <div class="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-14">
+        
+        <!-- Interactive CLI Terminal -->
+        <div class="flex flex-col justify-center lg:col-span-5">
+          <div class="glass-card flex h-full min-h-[380px] flex-col overflow-hidden rounded-3xl border border-[#00df89]/30 bg-black/85 font-mono shadow-2xl">
+            
+            <div class="flex items-center justify-between border-b border-white/10 bg-black/60 px-4 py-3">
+              <div class="flex items-center gap-2">
+                <span class="h-3 w-3 rounded-full bg-rose-500/80 transition-opacity hover:opacity-100"></span>
+                <span class="h-3 w-3 rounded-full bg-amber-500/80 transition-opacity hover:opacity-100"></span>
+                <span class="h-3 w-3 rounded-full bg-emerald-500/80 transition-opacity hover:opacity-100"></span>
+              </div>
+              <span class="text-[11px] text-gray-400">irfan@dev-station:~</span>
+              <div class="text-[10px] text-[#00df89]/70">zsh</div>
+            </div>
+
+            <div class="flex-1 space-y-3 p-5 text-xs leading-relaxed text-gray-300">
+              <div>
+                <p class="text-gray-400">
+                  <span class="text-[#00df89]">➜</span> <span class="text-cyan-400">~</span> <span class="text-white">curl -s status.irfan.dev</span>
+                </p>
+                <div class="mt-1.5 rounded-lg border border-white/5 bg-black/50 p-2.5 text-[11px] text-emerald-300">
+                  <p>● <span class="text-white font-semibold">Ready for new projects & roles</span></p>
+                  <p class="text-gray-400 mt-1">Location: <span class="text-gray-200">Putrajaya / Selangor / Kuala Lumpur</span></p>
+                  <p class="text-gray-400">Timezone: <span class="text-gray-200">Asia/Kuala_Lumpur (MYT)</span></p>
+                </div>
+              </div>
+
+              <div class="pt-1">
+                <p class="text-gray-400">
+                  <span class="text-[#00df89]">➜</span> <span class="text-cyan-400">~</span> <span class="text-white">irfan --expertise</span>
+                </p>
+                <p class="mt-1 text-[11px] text-gray-300">
+                  ["Full Stack Developer (Web & Mobile)"]
+                </p>
+              </div>
+
+              <div class="pt-2">
+                <p class="text-gray-400">
+                  <span class="text-[#00df89]">➜</span> <span class="text-cyan-400">~</span> <span id="terminal-typed" class="text-[#00df89] font-semibold"></span><span class="terminal-caret"></span>
+                </p>
+                <p id="terminal-output" class="mt-1 text-[11px] text-cyan-300 opacity-0 transition-opacity duration-300"></p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between border-t border-white/10 bg-black/50 px-4 py-2 font-mono text-[10px] text-gray-500">
+              <span>UTF-8</span>
+              <span class="text-emerald-400">● 0 errors | online</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Contact Links -->
+        <div class="flex flex-col justify-center lg:col-span-7">
+          <div class="mb-8">
+            <span class="font-mono text-xs uppercase tracking-wider text-[#00df89]">Let's Connect</span>
+            <h2 class="mt-1 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Get In Touch</h2>
+            <p class="mt-2 text-sm text-gray-400 sm:text-base">Terbuka untuk peluang pekerjaan baharu, projek pembangunan perisian, atau kolaborasi teknikal.</p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            
+            <!-- Email -->
+            <a href="mailto:your-email@example.com" class="glass-card group flex items-center justify-between rounded-2xl p-5 hover:scale-[1.02]">
+              <div class="flex items-center gap-3.5">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#00df89]/30 bg-[#00df89]/10 text-[#00df89] transition-transform group-hover:scale-110">
+                  <svg class="h-5 w-5 shrink-0" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-gray-400">Direct Message</div>
+                  <div class="text-sm font-bold text-white transition-colors group-hover:text-[#00df89]">Send Email</div>
+                </div>
+              </div>
+              <span class="text-gray-400 transition-all group-hover:translate-x-1.5 group-hover:text-[#00df89]">→</span>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/mohamad-irfanazwan/" target="_blank" rel="noopener noreferrer" class="glass-card group flex items-center justify-between rounded-2xl p-5 hover:scale-[1.02]">
+              <div class="flex items-center gap-3.5">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 transition-transform group-hover:scale-110">
+                  <svg class="h-5 w-5 shrink-0 fill-current" width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-gray-400">Professional Network</div>
+                  <div class="text-sm font-bold text-white transition-colors group-hover:text-cyan-300">LinkedIn Profile</div>
+                </div>
+              </div>
+              <span class="text-gray-400 transition-all group-hover:translate-x-1.5 group-hover:text-cyan-300">→</span>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="glass-card group flex items-center justify-between rounded-2xl p-5 sm:col-span-2 hover:scale-[1.01]">
+              <div class="flex items-center gap-3.5">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/5 text-white transition-transform group-hover:scale-110">
+                  <svg class="h-5 w-5 shrink-0 fill-current" width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-gray-400">Repositories & Code</div>
+                  <div class="text-sm font-bold text-white transition-colors group-hover:text-[#00df89]">GitHub Repositories</div>
+                </div>
+              </div>
+              <span class="text-gray-400 transition-all group-hover:translate-x-1.5 group-hover:text-white">→</span>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-white/10 bg-black/60 py-10 relative z-20">
+      <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 font-mono text-xs text-gray-400 sm:flex-row">
+        <p>© 2026 Mohamad Irfan. All rights reserved.</p>
+        <p class="text-gray-400">Built with HTML, Tailwind CSS & Plexus Canvas.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Plexus Canvas, 3D Tilt, Scroll Reveal, Filter & Terminal Typewriter Script -->
+  <script>
+    // 1. Live MYT Clock
+    function updateClock() {
+      const now = new Date();
+      const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const timeStr = new Intl.DateTimeFormat('en-GB', options).format(now);
+      const clockElem = document.getElementById('myt-clock');
+      if (clockElem) clockElem.innerText = timeStr + ' MYT';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. 1-Click Copy Email to Clipboard
+    function copyEmail(button) {
+      const email = button.getAttribute('data-email');
+      navigator.clipboard.writeText(email).then(() => {
+        const textSpan = button.querySelector('.btn-text');
+        const originalText = textSpan.innerText;
+        textSpan.innerText = 'Copied!';
+        button.classList.add('text-[#00df89]', 'border-[#00df89]');
+        setTimeout(() => {
+          textSpan.innerText = originalText;
+          button.classList.remove('text-[#00df89]', 'border-[#00df89]');
+        }, 2000);
+      });
+    }
+
+    // 3. Project Category Filter Functionality
+    function filterProjects(category) {
+      const projectItems = document.querySelectorAll('.project-card-item');
+      const filterButtons = document.querySelectorAll('.filter-btn');
+
+      filterButtons.forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+          btn.className = 'filter-btn px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all bg-[#00df89] text-black shadow-[0_0_15px_rgba(0,223,137,0.3)]';
+        } else {
+          btn.className = 'filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-all';
+        }
+      });
+
+      projectItems.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (category === 'all' || cardCat === category) {
+          card.classList.remove('hidden-project');
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+        } else {
+          card.classList.add('hidden-project');
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.95)';
+        }
+      });
+    }
+
+    // 4. Motion: Scroll-Reveal Observer
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-motion').forEach(el => revealObserver.observe(el));
+
+    // 5. Motion: 3D Mouse Tilt Effect pada Kad Gambar Hero
+    function setupCardTilt(cardId) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
+    setupCardTilt('tilt-profile-1');
+
+    // 6. Terminal Typewriter Simulation
+    const terminalCommands = [
+      { cmd: "ping collaboration.connect", output: "64 bytes from opportunity: time=8ms [Connection Established]" },
+      { cmd: "git checkout -b feature/future", output: "Switched to a new branch 'feature/future'" },
+      { cmd: "echo 'Let\\'s build something great together'", output: "Let's build something great together 🚀" }
+    ];
+    let cmdIdx = 0, charIdx = 0, isDeleting = false;
+    const typedElem = document.getElementById('terminal-typed');
+    const outputElem = document.getElementById('terminal-output');
+
+    function typeTerminalLoop() {
+      if (!typedElem || !outputElem) return;
+      const current = terminalCommands[cmdIdx];
+
+      if (!isDeleting) {
+        typedElem.innerText = current.cmd.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === current.cmd.length) {
+          outputElem.innerText = current.output;
+          outputElem.style.opacity = '1';
+          setTimeout(() => { isDeleting = true; }, 2800);
+          return setTimeout(typeTerminalLoop, 2800);
+        }
+      } else {
+        outputElem.style.opacity = '0';
+        typedElem.innerText = current.cmd.substring(0, charIdx - 1);
+        charIdx--;
+        if (charIdx === 0) {
+          isDeleting = false;
+          cmdIdx = (cmdIdx + 1) % terminalCommands.length;
+          return setTimeout(typeTerminalLoop, 600);
+        }
+      }
+      setTimeout(typeTerminalLoop, isDeleting ? 40 : 85);
+    }
+    setTimeout(typeTerminalLoop, 1000);
+
+    // 7. Interactive Plexus Canvas
+    const canvas = document.getElementById('plexus-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles;
+    const mouse = { x: null, y: null, radius: 150 };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initParticles();
+    }
+
+    function initParticles() {
+      particles = [];
+      const count = Math.floor((width * height) / 15000);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 1.5 + 1
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Garisan penghubung
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(0, 223, 137, ${0.16 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Lukisan & interaksi graviti zarah
+      for (let p of particles) {
+        if (mouse.x !== null && mouse.y !== null) {
+          const mdx = mouse.x - p.x;
+          const mdy = mouse.y - p.y;
+          const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+
+          if (mdist < mouse.radius) {
+            const force = (mouse.radius - mdist) / mouse.radius;
+            p.x += (mdx / mdist) * force * 1.5;
+            p.y += (mdy / mdist) * force * 1.5;
+          }
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#00df89';
+        ctx.shadowColor = '#00df89';
+        ctx.shadowBlur = 6;
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+  </script>
+</body>
+</html>
